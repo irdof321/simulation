@@ -1,0 +1,38 @@
+@startuml
+abstract class Object {
+    +id: int
+    +position: Point
+}
+
+abstract class Static {
+    +getPosition(): Point
+}
+
+abstract class Gatherable {
+    +gather(): void
+}
+
+abstract class Moveable {
+    +move(): void
+}
+
+class Human {
+    +name: String
+    +age: int
+    +move(): void
+    +gather(): void
+}
+
+class Carrot {
+    +nutritionalValue: int
+    +gather(): void
+}
+
+Object <|-- Static
+Object <|-- Gatherable
+Object <|-- Moveable
+Moveable <|-- Human
+Static <|-- Carrot
+Gatherable <|-- Carrot
+
+@enduml
