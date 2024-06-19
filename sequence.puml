@@ -1,0 +1,54 @@
+@startuml
+actor User
+
+participant Main as MainView
+participant DM as DataManager
+participant Ctrl as Controller
+participant Human
+participant Carrot
+
+User -> Main: run()
+activate Main
+
+Main -> Main: init()
+Main -> DM: get_objects()
+activate DM
+DM -> Human: draw()
+activate Human
+Human -> Main: return Image
+deactivate Human
+DM -> Carrot: draw()
+activate Carrot
+Carrot -> Main: return Image
+deactivate Carrot
+deactivate DM
+
+Main -> Ctrl: update()
+activate Ctrl
+Ctrl -> DM: get_objects()
+activate DM
+DM -> Human: move()
+activate Human
+Human -> Ctrl: return
+deactivate Human
+Ctrl -> DM: get_objects()
+DM -> Human: check_proximity()
+activate Human
+Human -> Ctrl: gather(gatherable)
+deactivate Human
+DM -> Ctrl: remove(gatherable)
+deactivate DM
+deactivate Ctrl
+
+Main -> Main: draw()
+Main -> Human: draw()
+activate Human
+Human -> Main: return Image
+deactivate Human
+Main -> Carrot: draw()
+activate Carrot
+Carrot -> Main: return Image
+deactivate Carrot
+
+deactivate Main
+@enduml

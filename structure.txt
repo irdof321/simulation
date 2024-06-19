@@ -1,0 +1,23 @@
+project/
+│
+├── src/
+│   ├── model/
+│   │   ├── __init__.py
+│   │   ├── object.py
+│   │   ├── human.py
+│   │   ├── carrot.py
+│   │   ├── datamanager.py
+│   │
+│   ├── view/
+│   │   ├── __init__.py
+│   │   ├── mainview.py
+│   │
+│   ├── controller/
+│   │   ├── __init__.py
+│   │   ├── controller.py
+│
+├── assets/
+│   ├── human.png
+│   ├── carrot.png
+│
+└── main.py

@@ -1,31 +1,64 @@
 @startuml
-abstract class Object {
-    +id: int
-    +position: Point
+package model {
+    abstract class Object {
+        +id: int
+        +position: tuple
+        +size: tuple
+        +image_path: str
+        +draw(): Image
+    }
+
+    abstract class Static {
+        +getPosition(): tuple
+    }
+
+    abstract class Gatherable {
+        +nutrition_value: int
+        +gather(): void
+    }
+
+    abstract class Moveable {
+        +move(): void
+    }
+
+    class Human {
+        +name: str
+        +age: int
+        +inventory: list
+        +move(): void
+        +gather(gatherable: Gatherable): void
+        +draw(): Image
+    }
+
+    class Carrot {
+        +gather(): void
+        +draw(): Image
+    }
+
+    class DataManager {
+        +gatherables: list
+        +moveables: list
+        +humans: list
+        +add_gatherable(gatherable): void
+        +add_moveable(moveable): void
+        +add_human(human): void
+        +get_objects(): list
+    }
 }
 
-abstract class Static {
-    +getPosition(): Point
+package controller {
+    class Controller {
+        +update(): void
+        +check_proximity(human, gatherable): bool
+    }
 }
 
-abstract class Gatherable {
-    +gather(): void
-}
-
-abstract class Moveable {
-    +move(): void
-}
-
-class Human {
-    +name: String
-    +age: int
-    +move(): void
-    +gather(): void
-}
-
-class Carrot {
-    +nutritionalValue: int
-    +gather(): void
+package view {
+    class MainView {
+        +draw(): void
+        +run(): void
+        +update(): void
+    }
 }
 
 Object <|-- Static
@@ -34,5 +67,11 @@ Object <|-- Moveable
 Moveable <|-- Human
 Static <|-- Carrot
 Gatherable <|-- Carrot
+
+DataManager "1" *-- "0..*" Gatherable
+DataManager "1" *-- "0..*" Moveable
+DataManager "1" *-- "0..*" Human
+Controller "1" *-- "1" DataManager
+MainView "1" *-- "1" DataManager
 
 @enduml
