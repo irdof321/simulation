@@ -15,3 +15,7 @@ class DataManager:
 
     def get_objects(self):
         return self.gatherables + self.moveables + self.humans
+    
+    def draw(self):
+        for obj in self.get_objects():
+            obj.draw()
